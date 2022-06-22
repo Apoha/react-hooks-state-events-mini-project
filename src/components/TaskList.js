@@ -1,35 +1,36 @@
 import React, {useState} from "react";
+
+
 import Task from "./Task"
 
 
 
-function TaskList(TASKS ) {
+function TaskList ({tasks}) {
 
-  const[deleteBtn, setDeleteBtn] = useState(false)
+  const[taskToDelete, setTaskToDelete ] = useState(tasks)
 
 
-function handleDeleteBtn(){
-setDeleteBtn((deleteBtn) => !deleteBtn)
+function handleDeleteBtn(taskName){
+  const deleteTask = taskToDelete.filter(({text}) => { 
+  
+  return  text !== taskName 
+  } 
+  );
+     
+console.log(deleteTask)
+// console.log(index)
+
+
+
+    setTaskToDelete((deleteTask))
 }
-
-  const tasksList= TASKS.map((task) => (
-      
-    <Task 
-    key={task.text} 
-    text={task.text} 
-    category={task.category}
-    deleteBtn ={deleteBtn}
-    handleDeleteBtn ={handleDeleteBtn}
-    />))
-
-
 
 
   return (
     <div className="tasks">
       {/* display a list of tasks using Task component */}
-     {tasksList}
-     
+      {tasks.map((task, index)=> <Task key={index} text={task.text} category={task.category} handleDeleteBtn={handleDeleteBtn}
+              />)}
     </div>
   );
 }
